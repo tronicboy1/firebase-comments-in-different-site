@@ -38,7 +38,7 @@ const App: React.FC = () => {
     push(currentCommentRef, {
       sender: formData.sender,
       body: formData.body,
-      sentAt: new Date().toString(),
+      sentAt: new Date().getTime(),
     }).catch((error) => console.error(error));
   };
 
