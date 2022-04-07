@@ -39,7 +39,7 @@ const App: React.FC = () => {
       sender: formData.sender,
       body: formData.body,
       sentAt: new Date().toString(),
-    });
+    }).catch((error) => console.error(error));
   };
 
   return (
