@@ -11,7 +11,10 @@ const CommentForm: React.FC<{
     const name = nameRef.current!.value.trim();
     const body = bodyRef.current!.value.trim();
 
-    if (name && body) {
+    const nameIsValid = name.length > 2 && name.length < 100;
+    const bodyIsValid = body.length > 2 && body.length < 500;
+
+    if (nameIsValid && bodyIsValid) {
       sendComment({ sender: name, body });
     }
   };
