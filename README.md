@@ -1,24 +1,33 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is a demonstration of how one could integrate Firebase's Realtime DB with an existing website.
 
-Things you may want to cover:
+# Getting Started
+## Setup your Firebase Account
+You must create a firebase project with the Realtime Database enabled and register a new web app. Use the credentials provided and set src/firebase/index.ts accordingly.
 
-* Ruby version
+## Building the Docker Image
 
-* System dependencies
+```
+docker build -t firebase-comments:latest .
+```
 
-* Configuration
+## Postgres DB
 
-* Database creation
+```
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=root -d postgres
+```
 
-* Database initialization
+## Start Rails Image
 
-* How to run the test suite
+```
+docker run -d -p 3000:3000 --env-file .env tronicboy/firebase-comments:pg
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Migrate DB
 
-* Deployment instructions
-
-* ...
+```
+docker ps
+docker exec -it <container-id-here> /bin/bash
+rails db:migrate
+```

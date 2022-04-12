@@ -10,8 +10,7 @@ RUN yarn build
 FROM --platform=arm64 ruby:3.0.0 AS runner
 RUN apt-get update && apt-get install -y nodejs postgresql-client libc6
 WORKDIR /app
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+COPY Gemfile Gemfile.lock /app/
 
 ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
@@ -26,9 +25,9 @@ COPY . /app/
 # WebpackでビルドしたReactの成果物を持ってくる
 COPY --from=webpack-builder /app/public/js /app/public/js
 
-RUN rails db:migrate
 RUN rails assets:precompile
 
 EXPOSE 3000
+VOLUME [ "/app/log" ]
 
 CMD ["rails", "server", "-e", "production", "-b", "0.0.0.0"]
