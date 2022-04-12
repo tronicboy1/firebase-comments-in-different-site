@@ -8,7 +8,11 @@ interface Comment {
   id: string;
   sender: string;
   body: string;
-  sentAt: Date;
+  sentAt: number;
+}
+
+interface FirebaseCommentSnapshot {
+  [id: string]: Omit<Comment, "id">;
 }
 
 const commentId = document.location.pathname.split("/").join("");
@@ -19,17 +23,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     onValue(currentCommentRef, (snapshot) => {
-      const data = snapshot.val();
-      const formattedData: Comment[] = [];
-      for (const key in data) {
-        const commentData = data[key];
-        formattedData.push({
-          id: key,
-          sender: commentData.sender,
-          body: commentData.body,
-          sentAt: new Date(commentData.sentAt),
-        });
-      }
+      const data = snapshot.val() as FirebaseCommentSnapshot;
+      const formattedData: Comment[] = Object.keys(data).map((id) => ({
+        id,
+        ...data[id],
+      }));
       setComments(formattedData);
     });
   }, []);
@@ -51,7 +49,7 @@ const App: React.FC = () => {
             <li key={comment.id}>
               <p>{comment.sender}</p>
               <p>{comment.body}</p>
-              <small>{comment.sentAt.toLocaleString()}</small>
+              <small>{new Date(comment.sentAt).toLocaleString()}</small>
             </li>
           ))}
         </ul>
