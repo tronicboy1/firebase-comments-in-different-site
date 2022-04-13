@@ -31,3 +31,18 @@ docker ps
 docker exec -it <container-id-here> /bin/bash
 rails db:migrate
 ```
+
+# Development mode
+Running rails in Dev mode is easy with the following code.
+```
+docker run --rm -p 3000:3000 --env-file .env firebase-comments:latest rails server -e development -b 0.0.0.0
+```
+
+## Javascript Reloading
+You can also reflect changes in javascript by adding a volume linked to your local project directory's public/js folder.
+Ensure that you use the full path for your system's local folder.
+```
+docker run --rm -p 3000:3000 -v ~/Documents/practice/gcp-firebase-article/blog/public/js:/app/public/js --env-file .env firebase-comments:latest rails server -e development -b 0.0.0.0
+```
+
+Running yarn build and refreshing the page will reflect changes. Also consider adding webpack dev server!

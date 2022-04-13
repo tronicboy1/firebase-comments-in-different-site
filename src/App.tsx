@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ref, onValue, push } from "firebase/database";
+import {
+  ref,
+  onValue,
+  push,
+  query,
+  orderByChild,
+  limitToLast,
+} from "firebase/database";
 import { database } from "./firebase";
 import CommentForm from "./components/CommentForm";
 import "./Index.css";
@@ -22,8 +29,14 @@ const App: React.FC = () => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
-    onValue(currentCommentRef, (snapshot) => {
+    const limitedComments = query(
+      currentCommentRef,
+      orderByChild("sentAt"),
+      limitToLast(5)
+    );
+    onValue(limitedComments, (snapshot) => {
       const data = snapshot.val() as FirebaseCommentSnapshot;
+      if (!data) return; // コメントがなかった場合
       const formattedData: Comment[] = Object.keys(data).map((id) => ({
         id,
         ...data[id],
