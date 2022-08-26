@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y nodejs postgresql-client libc6
 WORKDIR /app
 COPY Gemfile Gemfile.lock /app/
 
-ENV RAILS_ENV=production
+ENV RAILS_ENV=development
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV SECRET_KEY_BASE=secret
 
