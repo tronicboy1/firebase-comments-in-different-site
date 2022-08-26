@@ -14,6 +14,7 @@ COPY Gemfile Gemfile.lock /app/
 
 ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
+ENV SECRET_KEY_BASE=secret
 
 # ARM対策
 # RUN gem install nokogiri --platform=ruby
