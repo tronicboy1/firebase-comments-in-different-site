@@ -5,3 +5,5 @@ services:
     ports:
       - "3000:3000"
     command: rake db:migrate && rails server -e production -b 0.0.0.0
+    environment:
+      - RAILS_ENV=production
