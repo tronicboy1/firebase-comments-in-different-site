@@ -16,8 +16,8 @@ ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 
 # ARM対策
-RUN gem install nokogiri --platform=ruby
-RUN bundle config set force_ruby_platform true
+# RUN gem install nokogiri --platform=ruby
+# RUN bundle config set force_ruby_platform true
 
 RUN bundle install
 
