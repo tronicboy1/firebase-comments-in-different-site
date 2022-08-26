@@ -31,4 +31,4 @@ RUN rails assets:precompile
 EXPOSE 3000
 VOLUME [ "/app/log" ]
 
-CMD ["rails", "server", "-e", "production", "-b", "0.0.0.0"]
+CMD ["sh", "run.sh"]
