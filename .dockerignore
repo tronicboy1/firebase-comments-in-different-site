@@ -1,3 +1,7 @@
 node_modules
 vendor
 public/js
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.git
+.gitignore

@@ -7,7 +7,7 @@ RUN yarn install
 COPY /src /app/src
 RUN yarn build
 
-FROM --platform=arm64 ruby:3.0.0 AS runner
+FROM ruby:3.0.0 AS runner
 RUN apt-get update && apt-get install -y nodejs postgresql-client libc6
 WORKDIR /app
 COPY Gemfile Gemfile.lock /app/
